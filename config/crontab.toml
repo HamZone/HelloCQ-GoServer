@@ -1,0 +1,3 @@
+[task.test]
+    spec = "*/5 * * * * ?"
+    status = "off"

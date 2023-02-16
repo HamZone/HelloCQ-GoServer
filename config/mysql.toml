@@ -1,0 +1,8 @@
+[mysql]
+    hostport="" 
+    user=""
+    pwd=""
+    databasename=""
+    databaseLog=""
+    min = 10
+    max = 100

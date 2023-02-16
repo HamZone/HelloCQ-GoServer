@@ -1,0 +1,4 @@
+[redis]
+    hostport = ""
+    password = ""
+    db = 0
