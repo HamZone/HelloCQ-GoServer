@@ -5,7 +5,7 @@ import (
 	"os"
 	"runtime/debug"
 
-	"MyGoFramework/common/log"
+	"hellocq/common/log"
 )
 
 func Go(x func()) {

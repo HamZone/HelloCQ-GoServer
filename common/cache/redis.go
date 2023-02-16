@@ -1,8 +1,8 @@
 package cache
 
 import (
-	"MyGoFramework/common/conf"
-	"MyGoFramework/common/log"
+	"hellocq/common/conf"
+	"hellocq/common/log"
 
 	goredis "github.com/go-redis/redis"
 )

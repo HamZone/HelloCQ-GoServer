@@ -1,4 +1,4 @@
-module MyGoFramework
+module hellocq
 
 go 1.18
 

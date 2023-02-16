@@ -1,9 +1,9 @@
 package cron
 
 import (
-	"MyGoFramework/common/conf"
-	"MyGoFramework/common/log"
 	"fmt"
+	"hellocq/common/conf"
+	"hellocq/common/log"
 	"sync"
 
 	cron "github.com/robfig/cron/v3"

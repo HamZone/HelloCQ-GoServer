@@ -1,10 +1,10 @@
 package code
 
 import (
-	entities "MyGoFramework/app/server/entities/out"
-	"MyGoFramework/common/log"
 	"encoding/json"
 	"fmt"
+	entities "hellocq/app/server/entities/out"
+	"hellocq/common/log"
 	"io"
 	"net/http"
 	"strconv"

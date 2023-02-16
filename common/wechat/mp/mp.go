@@ -1,7 +1,7 @@
 package mp
 
 import (
-	"MyGoFramework/common/conf"
+	"hellocq/common/conf"
 
 	"github.com/silenceper/wechat/cache"
 	wechat "github.com/silenceper/wechat/v2"

@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"MyGoFramework/app/server/service"
-	"MyGoFramework/common/log"
+	"hellocq/app/server/service"
+	"hellocq/common/log"
 
 	"github.com/labstack/echo/v4"
 )

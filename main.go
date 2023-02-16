@@ -1,11 +1,11 @@
 package main
 
 import (
-	"MyGoFramework/bootstrap"
-	"MyGoFramework/common/conf"
-	"MyGoFramework/common/log"
+	"hellocq/bootstrap"
+	"hellocq/common/conf"
+	"hellocq/common/log"
 
-	"MyGoFramework/app/server/routers"
+	"hellocq/app/server/routers"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

@@ -1,23 +1,23 @@
 package email
 
 import (
-	"MyGoFramework/common/conf"
 	"fmt"
+	"hellocq/common/conf"
 
-	"MyGoFramework/common/log"
+	"hellocq/common/log"
 
 	"gopkg.in/gomail.v2"
 )
 
-//SendEmail SendEmail
+// SendEmail SendEmail
 type SendEmail struct{}
 
-//NewSendEmail NewSendEmail
+// NewSendEmail NewSendEmail
 func NewSendEmail() *SendEmail {
 	return &SendEmail{}
 }
 
-//SendExmail 发送邮箱邮件
+// SendExmail 发送邮箱邮件
 func (s *SendEmail) SendExmail(mailTo []string, subject string, body string) error {
 	m := gomail.NewMessage()
 	c := conf.ExMail

@@ -1,8 +1,8 @@
 package database
 
 import (
-	"MyGoFramework/common/conf"
-	"MyGoFramework/common/log"
+	"hellocq/common/conf"
+	"hellocq/common/log"
 
 	gmysql "gorm.io/driver/mysql"
 	"gorm.io/gorm"

@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"MyGoFramework/common/tools"
+	"hellocq/common/tools"
 	"log"
 
 	"github.com/BurntSushi/toml"

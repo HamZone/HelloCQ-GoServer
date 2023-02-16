@@ -1,14 +1,14 @@
 package bootstrap
 
 import (
-	"MyGoFramework/app/cron"
-	"MyGoFramework/app/server/code"
-	"MyGoFramework/common/cache"
-	"MyGoFramework/common/conf"
-	"MyGoFramework/common/database"
-	"MyGoFramework/common/log"
-	"MyGoFramework/common/tools"
-	"MyGoFramework/common/wechat/mp"
+	"hellocq/app/cron"
+	"hellocq/app/server/code"
+	"hellocq/common/cache"
+	"hellocq/common/conf"
+	"hellocq/common/database"
+	"hellocq/common/log"
+	"hellocq/common/tools"
+	"hellocq/common/wechat/mp"
 )
 
 func Init() {

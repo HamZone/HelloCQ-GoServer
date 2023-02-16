@@ -1,9 +1,9 @@
 package tools
 
 import (
-	"MyGoFramework/common/log"
 	"bytes"
 	"encoding/json"
+	"hellocq/common/log"
 	"io/ioutil"
 	"net/http"
 )
