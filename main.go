@@ -6,6 +6,7 @@ import (
 	"hellocq/common/log"
 
 	"hellocq/app/server/routers"
+	"hellocq/app/server/service"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -19,7 +20,7 @@ func main() {
 	e.Use(middleware.RequestID())
 	e.Logger.SetOutput(log.LogIO)
 
-	r := routers.Router{Log: log.NewLog()}
+	r := routers.Router{Log: log.NewLog(), S: service.NewService()}
 
 	r.SetRouter(e)
 

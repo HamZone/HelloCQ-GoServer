@@ -18,11 +18,11 @@ var (
 	bundle = i18n.NewBundle(language.Chinese)
 )
 
-func New(code int) entities.CommonMessage {
+func New(code int) entities.Response {
 	return add(code)
 }
 
-func add(code int) entities.CommonMessage {
+func add(code int) entities.Response {
 	if _, ok := _codes[code]; ok {
 		log.NewLog().Warningln(fmt.Sprintf("Warning: code: %d already exist!!!", code))
 	}
@@ -36,14 +36,14 @@ func add(code int) entities.CommonMessage {
 			// Other: "internal server error",
 		},
 	})
-	return entities.CommonMessage{
+	return entities.Response{
 		Code:    code,
 		Message: i18Msg,
 	}
 }
 
-func SuccessResp(data interface{}) entities.CommonMessage {
-	return entities.CommonMessage{
+func SuccessResp(data interface{}) entities.Response {
+	return entities.Response{
 		Code:    SuccessCode,
 		Message: SuccessMsg,
 		Data:    data,
@@ -64,7 +64,7 @@ func SystemError(w http.ResponseWriter, errMsg string, code int) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(code)
-	content, _ := json.Marshal(&entities.CommonMessage{
+	content, _ := json.Marshal(&entities.Response{
 		Code:    code,
 		Message: errMsg,
 	})

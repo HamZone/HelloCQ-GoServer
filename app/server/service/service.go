@@ -1,11 +1,18 @@
 package service
 
 import (
-	"net/http"
-
-	"github.com/labstack/echo/v4"
+	"hellocq/common/log"
+	"hellocq/common/model"
 )
 
-func Hi(e echo.Context) error {
-	return e.String(http.StatusOK, "hi")
+type Service struct {
+	dao *model.Dao
+	log *log.Log
+}
+
+func NewService() *Service {
+	return &Service{
+		dao: model.NewDao(),
+		log: log.NewLog(),
+	}
 }

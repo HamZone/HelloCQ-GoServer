@@ -9,9 +9,10 @@ import (
 
 type Router struct {
 	Log *log.Log
+	S   *service.Service
 }
 
 func (r *Router) SetRouter(e *echo.Echo) {
 	api := e.Group("/v1")
-	api.GET("/hi", service.Hi)
+	api.GET("/users/:id", r.S.GetUsers)
 }
