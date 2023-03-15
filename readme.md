@@ -2,7 +2,7 @@
 
 有关 HelloCQ.net 的改版讨论，可以[点此查看](https://bbs.hamzone.cn/d/16)
 
-项目使用 Go 语言进行开发，Echo 框架进行构建，免去对 PHPWind 项目的二次开发。
+项目使用 Go 语言进行开发，[Echo](https://echo.labstack.com/guide/) 框架进行构建，免去对 PHPWind 项目的二次开发。
 
 ## 合作
 如果有项目合作的想法，或者新任务的开始，建议在此仓库直接发起 Issue，避免任务进度重叠  

@@ -1,33 +1,75 @@
 package service
 
 import (
-	entities "hellocq/app/server/entities/out"
-	v1 "hellocq/app/server/entities/out/v1"
-	"net/http"
-	"strconv"
-
-	"github.com/labstack/echo/v4"
+	"crypto/md5"
+	"fmt"
+	"hellocq/app/server/code"
+	"hellocq/app/server/entities"
+	"hellocq/common/model"
+	"time"
 )
 
-// GetUsers 通过 ID 获取用户信息
-func (s *Service) GetUsers(e echo.Context) error {
-	id, err := strconv.Atoi(e.Param("id"))
-	if err != nil {
-		return e.JSON(http.StatusBadRequest, entities.ParamErr)
+// Register 注册用户
+func (s *Service) Register(param entities.RegisterParam) (entities.Response, error) {
+	var (
+		res entities.Response
+	)
+	if status, msg := RegisterValidator(param); !status {
+		res.Code, res.Message = 406, msg
+		return res, nil
 	}
-	res, err := s.dao.GetUserById(e.Request().Context(), id)
+	md5Password := fmt.Sprintf("%x", md5.Sum([]byte(param.Password)))
+
+	err := s.dao.Insert(model.MemberTable{
+		Username:     param.Username,
+		Password:     md5Password,
+		Email:        param.Email,
+		RegisterDate: time.Now().Unix(),
+	})
+
 	if err != nil {
 		s.log.Errorln(err)
-		return e.JSON(http.StatusInternalServerError, entities.DbErr)
+		res.Code, res.Message = 500, code.DbErrResp.Message
+		return res, code.ErrDb
 	}
-	return e.JSON(http.StatusOK, entities.Response{
-		Data: v1.GetUser{
-			Id:           res.Uid,
-			Username:     res.Username,
-			GroupId:      res.GroupId,
-			MemberId:     res.MemberId,
-			Gender:       res.Gender,
-			RegisterDate: res.RegisterDate,
-		},
-	})
+	return code.SuccessResp, nil
+}
+
+// Login 登录
+func (s *Service) Login(param entities.LoginParam) (entities.Response, error) {
+	var (
+		res entities.Response
+	)
+	if status, msg := LoginVlidator(param); !status {
+		res.Code, res.Message = 406, msg
+		return res, nil
+	}
+	info, err := s.dao.GetUserByUsername(param.Username)
+	if err != nil {
+		s.log.Errorln(err)
+		res.Code, res.Message = 500, code.DbErrResp.Message
+		return res, code.ErrDb
+	}
+	if info.Uid == 0 {
+		return code.DataNotfoundResp, nil
+	}
+	md5Password := fmt.Sprintf("%x", md5.Sum([]byte(param.Password)))
+	if md5Password != info.Password {
+		res.Code, res.Message = 406, "password not match"
+		return res, nil
+	}
+	return code.SuccessResp, nil
+}
+
+// GetUsers 通过 ID 获取用户信息
+func (s *Service) GetUsers(id int) (model.MemberTable, error) {
+	var (
+		res model.MemberTable
+	)
+	res, err := s.dao.GetUserById(id)
+	if err != nil {
+		s.log.Errorln(err)
+		return res, err
+	}
+	return res, nil
 }

@@ -1,16 +1,18 @@
 package conf
 
-//AppConf AppConf
+// AppConf AppConf
 var AppConf app
 
 var CrontabConf crontab
 
-//MySQLConf MySQLConf
+// MySQLConf MySQLConf
 var MySQLConf mySQL
 
 var RedisConf redis
 
 var ExMail email
+
+var AccessUser accessUser
 
 type app struct {
 	App struct {
@@ -60,4 +62,15 @@ type crontab struct {
 type taskInfo struct {
 	Spec   string
 	Status string
+}
+
+type accessUser struct {
+	User struct {
+		List []UserList
+	}
+}
+
+type UserList struct {
+	Id  string
+	Key string
 }

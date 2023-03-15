@@ -3,7 +3,7 @@ package code
 import (
 	"encoding/json"
 	"fmt"
-	entities "hellocq/app/server/entities/out"
+	"hellocq/app/server/entities"
 	"hellocq/common/log"
 	"io"
 	"net/http"
@@ -42,7 +42,7 @@ func add(code int) entities.Response {
 	}
 }
 
-func SuccessResp(data interface{}) entities.Response {
+func Response(data interface{}) entities.Response {
 	return entities.Response{
 		Code:    SuccessCode,
 		Message: SuccessMsg,

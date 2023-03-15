@@ -28,6 +28,7 @@ func (c *Config) getConfig() error {
 	conf = append(conf, eConfig{FileName: "mysql.toml", Value: &MySQLConf})
 	conf = append(conf, eConfig{FileName: "redis.toml", Value: &RedisConf})
 	conf = append(conf, eConfig{FileName: "email.toml", Value: &ExMail})
+	conf = append(conf, eConfig{FileName: "access.toml", Value: &AccessUser})
 	return c.parse(conf)
 }
 

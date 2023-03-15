@@ -5,8 +5,8 @@ import (
 	"hellocq/common/conf"
 	"hellocq/common/log"
 
+	"hellocq/app/server/handler"
 	"hellocq/app/server/routers"
-	"hellocq/app/server/service"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -18,9 +18,13 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.Recover())
 	e.Use(middleware.RequestID())
-	e.Logger.SetOutput(log.LogIO)
+	e.Use(middleware.Secure())
+	e.Use(middleware.BodyLimit("20M"))
 
-	r := routers.Router{Log: log.NewLog(), S: service.NewService()}
+	e.Logger.SetOutput(log.LogIO)
+	e.HideBanner = true
+
+	r := routers.Router{Log: log.NewLog(), Handler: handler.NewHandler()}
 
 	r.SetRouter(e)
 
