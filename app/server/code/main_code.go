@@ -25,11 +25,13 @@ const (
 )
 
 var (
-	ErrDb = errors.New(dbErrMsg)
+	ErrDb    = errors.New(dbErrMsg)
+	ErrToken = errors.New("token generate error")
 )
 
 var (
 	NoPermissionResp = entities.Response{Code: http.StatusForbidden, Message: "Not Authorized"}
+	UnauthorizedResp = entities.Response{Code: http.StatusUnauthorized, Message: "Unauthorized"}
 	HelloCQResp      = entities.Response{Code: http.StatusOK, Message: "hello CQ"}
 	SuccessResp      = entities.Response{Code: http.StatusOK, Message: SuccessMsg}
 	DbErrResp        = entities.Response{Code: http.StatusInternalServerError, Message: dbErrMsg}

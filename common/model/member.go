@@ -40,6 +40,16 @@ func (m *Dao) GetUserByUsername(username string) (MemberTable, error) {
 	return t, nil
 }
 
+func (m *Dao) EmailExist(email string) (bool, error) {
+	var t MemberTable
+	err := m.Db.Table(MemberTableName).Select("uid").
+		Where("email = ?", email).First(&t).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return false, err
+	}
+	return t.Uid > 0, nil
+}
+
 func (m *Dao) Insert(p MemberTable) error {
 	return m.Db.Table(MemberTableName).Create(&p).Error
 }

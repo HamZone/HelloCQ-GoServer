@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"hellocq/app/server/code"
 	"hellocq/app/server/entities"
+	"hellocq/common/email"
 	"hellocq/common/model"
+	"hellocq/common/tools"
 	"time"
 )
 
@@ -26,12 +28,14 @@ func (s *Service) Register(param entities.RegisterParam) (entities.Response, err
 		Email:        param.Email,
 		RegisterDate: time.Now().Unix(),
 	})
-
 	if err != nil {
 		s.log.Errorln(err)
 		res.Code, res.Message = 500, code.DbErrResp.Message
 		return res, code.ErrDb
 	}
+	tools.Go(func() {
+		email.NewSendEmail().SendExmail([]string{param.Email}, "HelloCQ.net 注册邮件认证", "")
+	})
 	return code.SuccessResp, nil
 }
 
@@ -58,7 +62,26 @@ func (s *Service) Login(param entities.LoginParam) (entities.Response, error) {
 		res.Code, res.Message = 406, "password not match"
 		return res, nil
 	}
-	return code.SuccessResp, nil
+	token, err := GenerateToken(Claims{
+		Username: param.Username,
+		Uid:      info.Uid,
+		Ip:       param.Ip,
+	})
+	if err != nil {
+		s.log.Errorln(err)
+		res.Code, res.Message = 500, code.ErrToken.Error()
+		return res, code.ErrToken
+	}
+	res = code.SuccessResp
+	res.Data = map[string]string{
+		"token": token,
+		"refresh_token": GenerateRefreshToken(Claims{
+			Username: param.Username,
+			Uid:      info.Uid,
+			Ip:       param.Ip,
+		}),
+	}
+	return res, nil
 }
 
 // GetUsers 通过 ID 获取用户信息

@@ -65,7 +65,8 @@ type taskInfo struct {
 }
 
 type accessUser struct {
-	User struct {
+	JwtSec string
+	User   struct {
 		List []UserList
 	}
 }

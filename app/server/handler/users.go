@@ -31,6 +31,7 @@ func (h *Handler) Login(e echo.Context) error {
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, code.ParamErrResp)
 	}
+	param.Ip = e.RealIP()
 	res, err := h.Service.Login(param)
 	if err != nil {
 		return e.JSON(http.StatusInternalServerError, res)
